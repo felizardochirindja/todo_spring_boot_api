@@ -3,12 +3,18 @@ package com.personal.todo.modules.shared.schedulers;
 import java.time.LocalDateTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import com.personal.todo.modules.task.adapters.repositories.TaskRepository;
 
 @Service("taskJobScheduler")
+@ConditionalOnProperty(
+    name = "app.scheduling.enabled",
+    havingValue = "true",
+    matchIfMissing = true
+)
 public class TaskScheduler {
     @Autowired
     private TaskRepository taskRepository;
