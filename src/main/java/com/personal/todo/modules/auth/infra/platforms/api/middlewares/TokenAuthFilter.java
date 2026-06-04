@@ -1,6 +1,8 @@
 package com.personal.todo.modules.auth.infra.platforms.api.middlewares;
 
 import com.personal.todo.modules.auth.business.app.actions.ports.output.TokenGenerator;
+import com.personal.todo.modules.auth.business.app.services.TokenBlacklistService;
+
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -23,6 +25,8 @@ public class TokenAuthFilter extends OncePerRequestFilter {
     private TokenGenerator tokenGenerator;
     @Autowired
     private UserDetailsService userDetailsService;
+    @Autowired
+    private TokenBlacklistService tokenBlacklistService;
     private final AntPathMatcher pathMatcher = new AntPathMatcher();
 
     private static final List<String> PUBLIC_PATHS = List.of(
@@ -62,6 +66,11 @@ public class TokenAuthFilter extends OncePerRequestFilter {
         String email = tokenGenerator.validateToken(token);
 
         if (email == null) {
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            return;
+        }
+
+        if (tokenBlacklistService.isBlacklisted(token)) {
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             return;
         }
