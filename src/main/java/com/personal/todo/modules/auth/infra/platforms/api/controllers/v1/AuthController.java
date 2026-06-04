@@ -2,12 +2,15 @@ package com.personal.todo.modules.auth.infra.platforms.api.controllers.v1;
 
 import com.personal.todo.modules.auth.business.app.actions.AuthActions;
 import com.personal.todo.modules.auth.business.app.actions.params.input.SignupInput;
+import com.personal.todo.modules.auth.business.app.services.TokenBlacklistService;
 import com.personal.todo.modules.user.business.entities.User;
 import com.personal.todo.modules.auth.infra.platforms.api.controllers.v1.requests.LoginPayload;
 import com.personal.todo.modules.auth.infra.platforms.api.controllers.v1.requests.SignupPayload;
 import com.personal.todo.modules.auth.infra.platforms.api.controllers.v1.responses.LoginApiResponse;
+import com.personal.todo.modules.auth.infra.platforms.api.controllers.v1.responses.LogoutResponse;
 import com.personal.todo.modules.user.infra.platforms.api.controllers.v1.responses.UserApiResponse;
 import com.personal.todo.modules.user.infra.platforms.api.controllers.v1.responses.UserApi;
+import jakarta.servlet.http.HttpServletRequest;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -26,6 +29,8 @@ import org.springframework.web.bind.annotation.RestController;
 public final class AuthController {
     @Autowired
     private AuthActions authActions;
+    @Autowired
+    private TokenBlacklistService tokenBlacklistService;
 
     @PostMapping("/login")
     @Operation(
@@ -74,5 +79,31 @@ public final class AuthController {
         );
 
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
+    }
+
+    @PostMapping("/logout")
+    @Operation(
+            summary = "logout user",
+            method = "POST",
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "logout successful",
+                            content = @Content(
+                                    mediaType = "application/json",
+                                    schema = @Schema(implementation = LogoutResponse.class)
+                            )
+                    ),
+                    @ApiResponse(responseCode = "401", description = "unauthenticated")
+            }
+    )
+    public ResponseEntity<LogoutResponse> logout(HttpServletRequest request) {
+        String token = request.getHeader("Authorization");
+        if (token != null && token.startsWith("Bearer ")) {
+            token = token.replace("Bearer", "").trim();
+            tokenBlacklistService.blacklist(token);
+        }
+        var response = new LogoutResponse("success", "user logged out");
+        return ResponseEntity.ok(response);
     }
 }
