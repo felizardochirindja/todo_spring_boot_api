@@ -1,6 +1,7 @@
 package com.personal.todo.modules.user.infra.platforms.api.controllers.v1;
 
 import com.personal.todo.modules.auth.business.app.actions.ports.output.TokenGenerator;
+import com.personal.todo.modules.auth.business.app.services.TokenBlacklistService;
 import com.personal.todo.modules.auth.infra.platforms.api.middlewares.TokenAuthFilter;
 import com.personal.todo.modules.task.business.app.actions.TaskActions;
 import com.personal.todo.modules.task.business.entities.Task;
@@ -33,6 +34,8 @@ class UserControllerTest {
     private TokenGenerator tokenGenerator;
     @MockitoBean
     private UserDetailsService userDetailsService;
+    @MockitoBean
+    private TokenBlacklistService tokenBlacklistService;
     @Autowired
     private TokenAuthFilter tokenAuthFilter;
     @Autowired

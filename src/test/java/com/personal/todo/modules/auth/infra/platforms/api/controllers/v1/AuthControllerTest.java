@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.personal.todo.modules.auth.business.app.actions.AuthActions;
 import com.personal.todo.modules.auth.business.app.actions.params.input.SignupInput;
 import com.personal.todo.modules.auth.business.app.actions.ports.output.TokenGenerator;
+import com.personal.todo.modules.auth.business.app.services.TokenBlacklistService;
 import com.personal.todo.modules.auth.infra.platforms.api.controllers.v1.requests.LoginPayload;
 import com.personal.todo.modules.auth.infra.platforms.api.controllers.v1.requests.SignupPayload;
 import com.personal.todo.modules.user.business.entities.Role;
@@ -25,6 +26,8 @@ class AuthControllerTest {
     private MockMvc mockMvc;
     @Autowired
     private ObjectMapper objectMapper;
+    @MockitoBean
+    private TokenBlacklistService tokenBlacklistService;
     @Autowired
     private AuthController authController;
     @MockitoBean
