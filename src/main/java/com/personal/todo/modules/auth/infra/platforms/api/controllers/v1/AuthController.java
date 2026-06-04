@@ -15,6 +15,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -97,12 +98,15 @@ public final class AuthController {
                     @ApiResponse(responseCode = "401", description = "unauthenticated")
             }
     )
+    @SecurityRequirement(name = "bearerAuth")
     public ResponseEntity<LogoutResponse> logout(HttpServletRequest request) {
         String token = request.getHeader("Authorization");
+
         if (token != null && token.startsWith("Bearer ")) {
             token = token.replace("Bearer", "").trim();
             tokenBlacklistService.blacklist(token);
         }
+
         var response = new LogoutResponse("success", "user logged out");
         return ResponseEntity.ok(response);
     }
