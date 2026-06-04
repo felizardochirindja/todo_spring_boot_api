@@ -34,7 +34,8 @@ public class TokenAuthFilter extends OncePerRequestFilter {
         "/swagger-docs",
         "/swagger-ui/**",
         "/actuator/**",
-        "/auth/**"
+        "/auth/login",
+        "/auth/signup"
     );
 
     @Override
