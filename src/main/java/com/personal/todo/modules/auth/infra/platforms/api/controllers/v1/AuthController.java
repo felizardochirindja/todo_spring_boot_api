@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(value = "/auth", produces = {"application/json"})
+@RequestMapping(value = "/api/auth", produces = {"application/json"})
 public final class AuthController {
     @Autowired
     private AuthActions authActions;
