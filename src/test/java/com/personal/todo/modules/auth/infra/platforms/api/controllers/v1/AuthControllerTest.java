@@ -51,7 +51,7 @@ class AuthControllerTest {
 
         // act & assert
         mockMvc.perform(
-                MockMvcRequestBuilders.post("/auth/login")
+                MockMvcRequestBuilders.post("/api/auth/login")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(payload))
         ).andExpect(MockMvcResultMatchers.status().is2xxSuccessful());
@@ -60,7 +60,7 @@ class AuthControllerTest {
     }
 
     void loginShouldFail() {
-
+        
     }
 
     @Test
@@ -82,7 +82,7 @@ class AuthControllerTest {
 
         // act & assert
         mockMvc.perform(
-                MockMvcRequestBuilders.post("/auth/signup")
+                MockMvcRequestBuilders.post("/api/auth/signup")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(payload))
         ).andExpect(MockMvcResultMatchers.status().is2xxSuccessful());

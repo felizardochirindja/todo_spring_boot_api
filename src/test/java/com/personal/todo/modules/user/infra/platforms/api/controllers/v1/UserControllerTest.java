@@ -76,7 +76,7 @@ class UserControllerTest {
 
         // act & assert
         mockMvc.perform(
-                MockMvcRequestBuilders.get("/users/" + userId)
+                MockMvcRequestBuilders.get("/api/users/" + userId)
                         .contentType(MediaType.APPLICATION_JSON)
                         .header("Authorization", "Bearer " + fakeToken)
                 )
@@ -127,7 +127,7 @@ class UserControllerTest {
 
         // act & assert
         mockMvc.perform(
-                MockMvcRequestBuilders.get("/users/" + userId + "/tasks")
+                MockMvcRequestBuilders.get("/api/users/" + userId + "/tasks")
                         .contentType(MediaType.APPLICATION_JSON)
                         .header("Authorization", "Bearer " + fakeToken)
                 )
@@ -168,7 +168,7 @@ class UserControllerTest {
         Mockito.when(tokenGenerator.validateToken(invalidToken)).thenReturn(null);
 
         mockMvc.perform(
-                MockMvcRequestBuilders.get("/users/" + userId + "/tasks")
+                MockMvcRequestBuilders.get("/api/users/" + userId + "/tasks")
                         .contentType(MediaType.APPLICATION_JSON)
                         .header("Authorization", "Bearer " + invalidToken)
                 )
@@ -189,7 +189,7 @@ class UserControllerTest {
         int userId = 1;
 
         mockMvc.perform(
-                        MockMvcRequestBuilders.get("/users/" + userId + "/tasks")
+                        MockMvcRequestBuilders.get("/api/users/" + userId + "/tasks")
                                 .contentType(MediaType.APPLICATION_JSON)
                 )
                 .andExpect(MockMvcResultMatchers.status().isForbidden());

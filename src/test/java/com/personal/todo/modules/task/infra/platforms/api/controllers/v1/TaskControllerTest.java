@@ -79,7 +79,7 @@ class TaskControllerTest {
 
         // Act & Assert
         mockMvc.perform(
-                MockMvcRequestBuilders.post("/tasks")
+                MockMvcRequestBuilders.post("/api/tasks")
                         .header("Authorization", "Bearer " + token)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(payload))
@@ -127,7 +127,7 @@ class TaskControllerTest {
 
         // act & assert
         mockMvc.perform(
-                MockMvcRequestBuilders.get("/tasks/" + taskId)
+                MockMvcRequestBuilders.get("/api/tasks/" + taskId)
                         .header("Authorization", "Bearer " + token)
                         .contentType(MediaType.APPLICATION_JSON)
         ).andExpect(MockMvcResultMatchers.status().is2xxSuccessful());
@@ -169,7 +169,7 @@ class TaskControllerTest {
 
         // act & assert
         mockMvc.perform(
-                MockMvcRequestBuilders.put("/tasks/1")
+                MockMvcRequestBuilders.put("/api/tasks/1")
                         .header("Authorization", "Bearer " + token)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(payload))
