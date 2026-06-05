@@ -3,7 +3,6 @@ package com.personal.todo.modules.auth.business.entities;
 import com.personal.todo.modules.user.business.entities.User;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -14,7 +13,6 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AuthUser implements UserDetails {
-    @Autowired
     private User user;
 
     @Override
