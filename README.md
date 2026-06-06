@@ -13,15 +13,21 @@ Este projeto consiste em uma API REST desenvolvida com Java/Spring Boot, utiliza
 - ✅ Logging com SLF4J e Logback
 - ✅ JPA + Hibernate(Relacionamentos entre Entidades, CRUD, controle de transações...)
 - ✅ Migrations com Flyway
-- ✅ Banco de dados MySQL
+- ✅ Banco de dados MySQL para persistência em ambientes de dev/prod
+- ✅ Banco de dados H2 para ambientes de teste
+- ✅ Cache via Hazelcast integrado ao Spring Cache
 - ✅ JWT para autenticação e autorização
 - ✅ Role Based Access Control
-- ✅ Arquitetura em camadas com Clean Architecture
+- ✅ Arquitetura em camadas(Separação em Módulos)
 - ✅ Padrões de design: Strategy, Observer/Event-Driven, Singleton, DTO
-- ✅ Testes de unidade com JUnit e Mockito
+- ✅ Mensageria com Apache Kafka para comunicação orientada a eventos
+- ✅ Testes unitários com JUnit e Mockito
 - ✅ Integração com API externa via RestTemplate/WebClient
 - ✅ Gerenciamento de dependências com Maven
 - ✅ Versionamento com Git e hospedagem no GitHub
+- ✅ Integração contínua com GitHub Actions para execução de testes
+- ✅ Rate limiting com Bucket4j integrado ao Hazelcast para armazenamento em memória
+- ✅ Circuit Breaker com Resilience4j para controle de falhas em chamadas a serviços externos
 
 
 ## Sobre o Projeto/Motivação
