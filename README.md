@@ -28,6 +28,7 @@ Este projeto consiste em uma API REST desenvolvida com Java/Spring Boot, utiliza
 - ✅ Integração contínua com GitHub Actions para execução de testes
 - ✅ Rate limiting com Bucket4j integrado ao Hazelcast para armazenamento em memória
 - ✅ Circuit Breaker com Resilience4j para controle de falhas em chamadas a serviços externos
+- ✅ Exposição de endpoints de métricas usando Spring Boot Actuator
 
 
 ## Sobre o Projeto/Motivação
@@ -60,6 +61,26 @@ Essa separação simula cenários reais de processamento segmentado por tempo, f
 A API conta com um sistema de logs configurado com o Logback, onde os logs do próprio framework Spring Boot são exibidos diretamente no terminal durante a execução, facilitando o debuging em tempo real,  enquanto os logs relacionados à lógica de negócio e ao fluxo interno da aplicação são armazenados separadamente em um arquivo dedicado, garantindo melhor organização e rastreabilidade.
 
 Isso permite identificar com facilidade o que está acontecendo em cada camada da aplicação, seja durante a execução de regras de negócio, chamadas externas ou operações sensíveis, falicitando desta forma a depuração, auditoria e monitoramento do sistema.
+
+### Circuit Breaker
+
+Foi implementado Circuit Breaker utilizando Resilience4j para aumentar a resiliência da aplicação em chamadas a serviços externos.
+
+Além do comportamento padrão de isolamento de falhas, foi adotada uma estratégia de fallback baseada em cache: quando a API externa retorna erro ou se encontra indisponível, o sistema não interrompe o fluxo da requisição. Em vez disso, retorna a última resposta bem-sucedida previamente armazenada em cache.
+
+Essa abordagem introduz consistência eventual, já que os dados podem não refletir o estado mais recente da API externa. Por outro lado, garante continuidade do serviço, reduz impacto direto no usuário final e melhora a disponibilidade percebida da aplicação mesmo em cenários de degradação de dependências externas.
+
+### Rate Limiting
+
+A aplicação implementa rate limiting utilizando Bucket4j, com Hazelcast como backend em memória para controle e sincronização do estado entre requisições.
+
+Essa limitação foi aplicada exclusivamente aos endpoints de negócio que expõem recursos da API. Endpoints públicos e de infraestrutura, como documentação do Swagger e endpoints do Spring Actuator, são explicitamente excluídos dessa camada de proteção para não impactar observabilidade, health checks e acessibilidade da documentação.
+
+### Monitoramento e Métricas
+
+A aplicação expõe métricas operacionais através de endpoints fornecidos pelo Spring Boot Actuator, permitindo acesso direto a informações internas do sistema em tempo de execução.
+
+Essas métricas são expostas em formato consumível por ferramentas externas de Monitoramento, como Prometheus, possibilitando coleta automatizada, armazenamento e análise contínua. Isso viabiliza integração com dashboards, permitindo acompanhamento do comportamento da aplicação em cenários de produção.
 
 
 ### Testes Unitários
