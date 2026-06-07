@@ -1,0 +1,43 @@
+# Ignore macOS specific files
+._*
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Specific problematic files
+/._data
+
+# Ignore IntelliJ IDEA files
+.idea/
+*.iml
+
+# Ignore VS Code files
+.vscode/
+
+# Ignore Maven local repository (will be downloaded during build)
+.m2/
+
+# Ignore target directory (will be created during build)
+target/
+
+data/
+logs/
+
+# Ignore git files (but keep .git directory for git-commit-id-plugin)
+.gitattributes
+.gitignore
+
+# Explicitly include .git directory
+!.git/
+
+# Ignore configuration files for development tools
+.qwen/
+.continue/
+
+# Docker files (to avoid including docker context in itself)
+docker/
+
+# OS generated files
+Thumbs.db
+.ehthumbs.db
+Desktop.ini
