@@ -32,4 +32,14 @@
                 time-unit="SECONDS"/>
         </expiry-policy-factory>
     </cache>
+
+    <cache name="tasks">
+        <management-enabled>true</management-enabled>
+        <expiry-policy-factory>
+            <timed-expiry-policy-factory
+                expiry-policy-type="CREATED"
+                duration-amount="120"
+                time-unit="SECONDS"/>
+        </expiry-policy-factory>
+    </cache>
 </hazelcast>
