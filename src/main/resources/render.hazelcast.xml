@@ -11,6 +11,10 @@
             <multicast enabled="false"/>
             <tcp-ip enabled="false"/>
         </join>
+        <interfaces enabled="true">
+            <interface>127.0.0.1</interface>
+        </interfaces>
+        <port auto-increment="false">5701</port>
     </network>
 
     <cache name="rate-limit-buckets">
