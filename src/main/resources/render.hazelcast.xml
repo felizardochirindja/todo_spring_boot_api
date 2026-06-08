@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hazelcast
+    xsi:schemaLocation="https://www.hazelcast.com/schema/config hazelcast-config-5.1.xsd"
+    xmlns="http://www.hazelcast.com/schema/config"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+    <instance-name>rate-limit-hz</instance-name>
+
+    <network>
+        <join>
+            <multicast enabled="false"/>
+            <tcp-ip enabled="false"/>
+        </join>
+    </network>
+
+    <cache name="rate-limit-buckets">
+        <management-enabled>true</management-enabled>
+        <expiry-policy-factory>
+            <timed-expiry-policy-factory
+                expiry-policy-type="CREATED"
+                duration-amount="30"
+                time-unit="SECONDS"/>
+        </expiry-policy-factory>
+    </cache>
+
+    <cache name="task">
+        <management-enabled>true</management-enabled>
+        <expiry-policy-factory>
+            <timed-expiry-policy-factory
+                expiry-policy-type="CREATED"
+                duration-amount="60"
+                time-unit="SECONDS"/>
+        </expiry-policy-factory>
+    </cache>
+
+    <cache name="tasks">
+        <management-enabled>true</management-enabled>
+        <expiry-policy-factory>
+            <timed-expiry-policy-factory
+                expiry-policy-type="CREATED"
+                duration-amount="60"
+                time-unit="SECONDS"/>
+        </expiry-policy-factory>
+    </cache>
+</hazelcast>
