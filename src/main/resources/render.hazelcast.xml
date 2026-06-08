@@ -8,6 +8,7 @@
 
     <properties>
         <property name="hazelcast.socket.bind.any">false</property>
+        <property name="hazelcast.health.monitoring.level">OFF</property>
     </properties>
 
     <network>
