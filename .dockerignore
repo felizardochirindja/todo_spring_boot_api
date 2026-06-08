@@ -34,9 +34,6 @@ logs/
 .qwen/
 .continue/
 
-# Docker files (to avoid including docker context in itself)
-docker/
-
 # OS generated files
 Thumbs.db
 .ehthumbs.db
