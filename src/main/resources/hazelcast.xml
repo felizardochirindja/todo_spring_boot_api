@@ -6,7 +6,12 @@
 
     <instance-name>rate-limit-hz</instance-name>
 
+    <properties>
+        <property name="hazelcast.socket.bind.any">false</property>
+    </properties>
+
     <network>
+        <port auto-increment="false">5701</port>
         <join>
             <multicast enabled="false"/>
             <tcp-ip enabled="false"/>
