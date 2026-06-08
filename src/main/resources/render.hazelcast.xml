@@ -6,6 +6,10 @@
 
     <instance-name>rate-limit-hz</instance-name>
 
+    <properties>
+        <property name="hazelcast.socket.bind.any">false</property>
+    </properties>
+
     <network>
         <join>
             <multicast enabled="false"/>
