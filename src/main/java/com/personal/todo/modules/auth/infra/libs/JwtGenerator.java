@@ -46,8 +46,7 @@ public final class JwtGenerator implements TokenGenerator {
                     .verify(token)
                     .getSubject();
         } catch (JWTVerificationException e) {
-            System.out.println(e.getMessage());
-            return  "";
+            return null;
         }
     }
 }
