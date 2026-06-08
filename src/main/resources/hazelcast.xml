@@ -11,6 +11,7 @@
             <multicast enabled="false"/>
             <tcp-ip enabled="false"/>
         </join>
+        <rest-api enabled="true"/>
     </network>
 
     <cache name="rate-limit-buckets">
