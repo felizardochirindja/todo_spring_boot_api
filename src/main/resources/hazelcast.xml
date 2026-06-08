@@ -42,4 +42,14 @@
                 time-unit="SECONDS"/>
         </expiry-policy-factory>
     </cache>
+
+    <cache name="remoteTasks">
+        <management-enabled>true</management-enabled>
+        <expiry-policy-factory>
+            <timed-expiry-policy-factory
+                expiry-policy-type="CREATED"
+                duration-amount="120"
+                time-unit="SECONDS"/>
+        </expiry-policy-factory>
+    </cache>
 </hazelcast>
