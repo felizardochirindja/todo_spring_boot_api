@@ -37,6 +37,18 @@
         <appender-ref ref="KAFKA"/>
     </logger>
 
+    <logger name="com.hazelcast.internal.diagnostics.HealthMonitor" level="OFF" additivity="false">
+        <appender-ref ref="FRAMEWORK"/>
+    </logger>
+
+    <logger name="com.hazelcast.internal.server.tcp.TcpServerConnection" level="OFF" additivity="false">
+        <appender-ref ref="FRAMEWORK"/>
+    </logger>
+
+    <logger name="com.hazelcast.internal.nio.ascii.RestApiFilter" level="OFF" additivity="false">
+        <appender-ref ref="FRAMEWORK"/>
+    </logger>
+
     <logger name="org.apache.kafka.clients.consumer.internals.ConsumerCoordinator" level="INFO" additivity="false">
         <appender-ref ref="KAFKA"/>
         <appender-ref ref="CONSOLE"/>
