@@ -32,7 +32,7 @@ public class FetchRemoteTasksTest {
     @MockitoBean
     private Cache cache;
     @InjectMocks
-    private DummyJsonTaskSyncFetcherByWebClient fetcher;
+    private DummyJsonWebClientSyncTaskFetcher fetcher;
     private final Throwable throwable = new RuntimeException("circuit breaker open");
 
     @Test
