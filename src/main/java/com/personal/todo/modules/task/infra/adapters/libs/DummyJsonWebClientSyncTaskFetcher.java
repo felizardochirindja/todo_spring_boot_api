@@ -16,14 +16,22 @@ import org.springframework.cache.CacheManager;
 import org.springframework.cache.Cache;
 
 @Component
-public class DummyJsonTaskSyncFetcherByWebClient implements RemoteTaskSyncFetcher {
-    private static final Logger logger = LoggerFactory.getLogger(DummyJsonTaskSyncFetcherByWebClient.class);
+public class DummyJsonWebClientSyncTaskFetcher implements RemoteTaskSyncFetcher {
+    private static final Logger logger = LoggerFactory.getLogger(DummyJsonWebClientSyncTaskFetcher.class);
     @Autowired
     private WebClient dummyJsonWebClient;
     @Autowired
     private CacheManager cacheManager;
     @Autowired
-    private CacheService cacheService;
+    private Cache cache;
+
+    public DummyJsonWebClientSyncTaskFetcher() {
+        cache = cacheManager.getCache("remoteTasks");
+
+        if (cache == null) {
+            throw new RuntimeException("cache is null");
+        }
+    }
 
     @CircuitBreaker(name = "fetchTasksByUserId", fallbackMethod = "fetchTasksByUserIdFallback")
     public RemoteTasksResponse fetchTasksByUserId(Integer userId) {
@@ -32,7 +40,12 @@ public class DummyJsonTaskSyncFetcherByWebClient implements RemoteTaskSyncFetche
                 .retrieve()
                 .bodyToMono(RemoteTasksResponse.class)
                 .doOnNext(remoteTasks -> {
-                    cacheService.cacheSuccess(userId, remoteTasks);
+                    logger.atInfo()
+                        .setMessage("Caching successful response for fetchTasksByUserId")
+                        .addKeyValue("userId", userId)
+                        .log();
+                    
+                    cache.put(remoteTasks, userId);
                 })
                 .block();
 
@@ -47,12 +60,7 @@ public class DummyJsonTaskSyncFetcherByWebClient implements RemoteTaskSyncFetche
             .addKeyValue("message", throwable.getMessage())
             .log();
 
-        Cache cache = cacheManager.getCache("remoteTasks");
-        RemoteTasksResponse cachedRemoteTasks = null;
-
-        if (cache != null) {
-            cachedRemoteTasks = cache.get(userId, RemoteTasksResponse.class);
-        }
+        var cachedRemoteTasks = cache.get(userId, RemoteTasksResponse.class);
 
         if (cachedRemoteTasks == null) {
             logger.atWarn()
