@@ -3,7 +3,7 @@ package com.personal.todo.modules.shared.configs;
 import com.personal.todo.modules.user.business.app.CreateUserAction;
 import com.personal.todo.modules.user.business.app.ports.input.UserCreator;
 import com.personal.todo.modules.task.business.app.ports.output.remotetask.RemoteTaskSyncFetcher;
-import com.personal.todo.modules.task.infra.adapters.libs.DummyJsonTaskSyncFetcherByWebClient;
+import com.personal.todo.modules.task.infra.adapters.libs.DummyJsonWebClientSyncTaskFetcher;
 
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
@@ -16,7 +16,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 public class AppConfig {
     @Bean
     public RemoteTaskSyncFetcher remoteTaskSyncFetcher() {
-        return new DummyJsonTaskSyncFetcherByWebClient();
+        return new DummyJsonWebClientSyncTaskFetcher();
     }
 
     @Bean
