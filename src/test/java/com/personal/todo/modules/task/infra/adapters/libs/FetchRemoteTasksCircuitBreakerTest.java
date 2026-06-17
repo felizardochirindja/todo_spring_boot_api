@@ -33,8 +33,8 @@ public class FetchRemoteTasksCircuitBreakerTest {
     @Autowired
     private CacheManager cacheManager;
     @Autowired
-    @Qualifier("dummyJsonTaskSyncFetcherByWebClient")
-    private DummyJsonTaskSyncFetcherByWebClient fetcher;
+    @Qualifier("dummyJsonWebClientSyncTaskFetcher")
+    private DummyJsonWebClientSyncTaskFetcher fetcher;
     @MockitoBean
     private WebClient dummyJsonWebClient;
     @Autowired
